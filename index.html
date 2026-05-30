@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ไทยช่วยไทยพลัส – Asiaminimart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:#c0392b;--red2:#e74c3c;--gold:#f1c40f;--blue:#1a3a6b;
+      --blue2:#2563b0;--white:#fff;--bg:#f4f6fa;--gray:#6b7280;
+      --light:#e8ecf5;--green:#16a34a;--shadow:0 4px 24px rgba(26,58,107,0.13);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Sarabun',sans-serif;background:var(--bg);min-height:100vh;}
+    header{background:linear-gradient(135deg,var(--blue) 0%,var(--blue2) 100%);position:relative;overflow:hidden;}
+    header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(255,255,255,0.03) 18px,rgba(255,255,255,0.03) 36px);}
+    .htop{display:flex;align-items:center;justify-content:space-between;padding:16px 28px 8px;position:relative;z-index:1;}
+    .flag{display:flex;height:9px;width:140px;border-radius:4px;overflow:hidden;}
+    .flag span{flex:1;}
+    .fr{background:var(--red)}.fw{background:#fff}.fb{background:var(--blue)}
+    .sbadge{background:var(--gold);color:var(--blue);font-weight:800;font-size:.8rem;padding:4px 14px;border-radius:20px;}
+    .hbody{text-align:center;padding:4px 20px 20px;position:relative;z-index:1;}
+    .hbody h1{font-family:'Sarabun',sans-serif;font-size:clamp(1.5rem,5vw,2.4rem);font-weight:900;color:#fff;line-height:1.2;}
+    .hbody h1 span{color:var(--gold);}
+    .hbody p{font-size:.88rem;color:rgba(255,255,255,0.7);margin-top:4px;}
+    .pbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:0 20px 22px;position:relative;z-index:1;}
+    .pi{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:12px;padding:9px 18px;min-width:100px;}
+    .pi .pv{font-size:1.4rem;font-weight:800;color:var(--gold);}
+    .pi .pl{font-size:.7rem;color:rgba(255,255,255,.78);text-align:center;margin-top:2px;}
+    .main{max-width:520px;margin:0 auto;padding:22px 14px 60px;}
+    .card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:24px 24px 28px;margin-bottom:16px;}
+    .ctitle{font-size:1rem;font-weight:700;color:var(--blue);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+    .ctitle .dot{width:7px;height:7px;border-radius:50%;background:#f39c12;}
+    .tabs{display:flex;gap:0;border-radius:12px;overflow:hidden;border:2px solid var(--light);margin-bottom:22px;}
+    .tab{flex:1;padding:11px 10px;text-align:center;font-size:.88rem;font-weight:700;font-family:inherit;cursor:pointer;background:#fff;color:var(--gray);border:none;transition:background .18s,color .18s;}
+    .tab.active{background:var(--blue);color:#fff;}
+    .tab:not(.active):hover{background:var(--light);color:var(--blue);}
+    .field{margin-bottom:16px;}
+    label{display:block;font-size:.85rem;font-weight:600;color:var(--blue);margin-bottom:6px;}
+    label .req{color:var(--red2);margin-left:2px;}
+    .pw{position:relative;}
+    .pw .sym{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gray);font-size:1rem;pointer-events:none;}
+    input[type=number],input[type=text],input[type=tel]{width:100%;padding:12px 14px;border:2px solid var(--light);border-radius:11px;font-size:1rem;font-family:inherit;background:var(--bg);color:#1a1a2e;outline:none;transition:border .18s,box-shadow .18s;}
+    .pw input{padding-left:32px;font-size:1.15rem;font-weight:700;}
+    input:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(37,99,176,.09);background:#fff;}
+    .rbox{background:linear-gradient(135deg,#eef4ff,#f0f9f4);border:2px solid #c7d9f5;border-radius:14px;padding:18px 20px;margin-top:20px;display:none;}
+    .rbox h3{font-size:.82rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;}
+    .rrow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed #d3e0f5;font-size:.92rem;}
+    .rrow:last-child{border-bottom:none;}
+    .rrow .lbl{color:var(--gray);}
+    .rrow .val{font-weight:700;}
+    .rrow.rtotal .val{color:#1a1a2e;font-size:1.05rem;}
+    .rrow.rgov .val{color:var(--green);}
+    .rrow.ruser .val{color:var(--blue2);}
+    .rrow.rbig .lbl{color:var(--blue);font-weight:700;}
+    .rrow.rbig .val{color:var(--red);font-size:1.2rem;}
+    .capnote{display:none;background:#fef3c7;border:1px solid #f59e0b;color:#92400e;font-size:.68rem;padding:2px 7px;border-radius:7px;margin-left:6px;font-weight:600;}
+    .barwrap{margin:14px 0 4px;height:10px;border-radius:99px;overflow:hidden;display:flex;background:var(--light);}
+    .bg2{background:var(--blue2);transition:width .3s;}
+    .bg{background:var(--green);transition:width .3s;}
+    .bu{background:var(--blue2);transition:width .3s;}
+    .blabels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--gray);margin-top:3px;}
+    .warn{display:none;background:#fef3c7;border:1px solid #fcd34d;color:#78350f;border-radius:10px;padding:10px 14px;font-size:.86rem;font-weight:600;margin-top:10px;}
+    .info{display:none;background:#eff6ff;border:1px solid #93c5fd;color:#1e3a5f;border-radius:10px;padding:10px 14px;font-size:.86rem;font-weight:600;margin-top:10px;}
+    .exlbl{font-size:.8rem;color:var(--gray);margin:16px 0 8px;}
+    .exrow{display:flex;gap:8px;flex-wrap:wrap;}
+    .exbtn{padding:6px 14px;background:var(--light);border:1px solid #d1d9ed;border-radius:10px;font-size:.85rem;color:var(--blue);cursor:pointer;font-family:inherit;font-weight:600;transition:background .15s;}
+    .exbtn:hover{background:#d4e3f7;}
+    .bcl{width:100%;padding:11px;margin-top:20px;background:transparent;border:2px solid var(--light);border-radius:13px;font-size:.9rem;font-family:inherit;color:var(--gray);cursor:pointer;transition:background .15s;}
+    .bcl:hover{background:var(--light);color:var(--blue);}
+    footer{text-align:center;padding:18px;font-size:.75rem;color:var(--gray);}
+    footer strong{color:var(--blue);}
+    .pane{display:none;}
+    .pane.active{display:block;}
+  </style>
+</head>
+<body>
+<header>
+  <div class="htop">
+    <div class="flag">
+      <span class="fr"></span><span class="fw"></span>
+      <span class="fb"></span><span class="fb"></span>
+      <span class="fw"></span><span class="fr"></span>
+    </div>
+    <div class="sbadge">🏪 Asiaminimart</div>
+  </div>
+  <div class="hbody">
+    <h1>โครงการ<span>ไทยช่วยไทย</span>พลัส</h1>
+    <p>คำนวณส่วนแบ่งรัฐ / ประชาชน </p>
+    <p>รัฐช่วยออกสูงสุด ฿1,000 ต่อเดือน เป็นเวลา 4 เดือน</p>
+    <p>คำนวณโครงการโดยเอเชียร์มินิมาร์ท</p>
+  </div>
+  <div class="pbar">
+    <div class="pi"><span class="pv">60%</span><span class="pl">รัฐช่วยออก</span></div>
+    <div class="pi"><span class="pv">40%</span><span class="pl">ประชาชนออก</span></div>
+    <div class="pi"><span class="pv">฿200</span><span class="pl">สูงสุด/วัน (รัฐ)</span></div>
+    <div class="pi"><span class="pv">฿1,000</span><span class="pl">สูงสุด/เดือน (รัฐ)</span></div>
+    <div class="pi"><span class="pv">4</span><span class="pl">เดือน</span></div>
+  </div>
+</header>
+
+<div class="main">
+  <div class="card">
+    <div class="ctitle"><span class="dot"></span>เลือกรูปแบบคำนวณ</div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab(1)">💰 รู้ราคาสินค้า</button>
+      <button class="tab" onclick="switchTab(2)">🧾 รู้เงินที่มี</button>
+    </div>
+
+    <div class="pane active" id="pane1">
+      <div class="field">
+        <label>ราคาสินค้ารวม (บาท) <span class="req">*</span></label>
+        <div class="pw">
+          <span class="sym">฿</span>
+          <input type="number" id="p1_price" placeholder="0.00" min="0" step="0.01" oninput="calc1()" />
+        </div>
+      </div>
+      <div class="exlbl">ลองกด ตัวอย่างราคา</div>
+      <div class="exrow">
+        <button class="exbtn" onclick="setP1(100)">฿100</button>
+        <button class="exbtn" onclick="setP1(200)">฿200</button>
+        <button class="exbtn" onclick="setP1(333)">฿333</button>
+        <button class="exbtn" onclick="setP1(500)">฿500</button>
+        <button class="exbtn" onclick="setP1(1000)">฿1,000</button>
+      </div>
+      <div class="rbox" id="r1box">
+        <h3>📋 สรุปการชำระเงิน</h3>
+        <div class="rrow rtotal"><span class="lbl">ราคาสินค้ารวม</span><span class="val" id="r1_t">฿0</span></div>
+        <div class="rrow rgov">
+          <span class="lbl">รัฐช่วยออก 60% <span class="capnote" id="r1_cap">สูงสุด ฿200</span></span>
+          <span class="val" id="r1_g">฿0</span>
+        </div>
+        <div class="rrow ruser"><span class="lbl">ประชาชนจ่าย 40%</span><span class="val" id="r1_u">฿0</span></div>
+        <div class="barwrap"><div class="bg" id="r1_bG" style="width:0%"></div><div class="bu" id="r1_bU" style="width:0%"></div></div>
+        <div class="blabels"><span id="r1_lG">รัฐ 0%</span><span id="r1_lU">ประชาชน 0%</span></div>
+      </div>
+      <div class="warn" id="r1_warn"></div>
+      <button class="bcl" onclick="clr1()">🔄 ล้างค่า</button>
+    </div>
+
+    <div class="pane" id="pane2">
+      <div class="field">
+        <label>เงินที่ประชาชนมี / ต้องการจ่าย (บาท) <span class="req">*</span></label>
+        <div class="pw">
+          <span class="sym">฿</span>
+          <input type="number" id="p2_money" placeholder="0.00" min="0" step="0.01" oninput="calc2()" />
+        </div>
+      </div>
+      <div class="exlbl">ลองกด ตัวอย่างเงิน</div>
+      <div class="exrow">
+        <button class="exbtn" onclick="setP2(40)">฿40</button>
+        <button class="exbtn" onclick="setP2(80)">฿80</button>
+        <button class="exbtn" onclick="setP2(120)">฿120</button>
+        <button class="exbtn" onclick="setP2(200)">฿200</button>
+        <button class="exbtn" onclick="setP2(300)">฿300</button>
+      </div>
+      <div class="rbox" id="r2box">
+        <h3>🛒 สรุปความสามารถซื้อสินค้า</h3>
+        <div class="rrow rbig">
+          <span class="lbl">ซื้อสินค้าได้ทั้งหมด</span>
+          <span class="val" id="r2_total">฿0</span>
+        </div>
+        <div class="rrow rgov">
+          <span class="lbl">รัฐช่วยออก <span class="capnote" id="r2_cap">สูงสุด ฿200</span></span>
+          <span class="val" id="r2_gov">฿0</span>
+        </div>
+        <div class="rrow ruser">
+          <span class="lbl">ประชาชนจ่ายจริง</span>
+          <span class="val" id="r2_user">฿0</span>
+        </div>
+        <div class="barwrap">
+          <div class="bg" id="r2_bG" style="width:0%"></div>
+          <div class="bu" id="r2_bU" style="width:0%"></div>
+        </div>
+        <div class="blabels"><span id="r2_lG">รัฐ 0%</span><span id="r2_lU">ประชาชน 0%</span></div>
+      </div>
+      <div class="info" id="r2_info"></div>
+      <button class="bcl" onclick="clr2()">🔄 ล้างค่า</button>
+    </div>
+
+  </div>
+</div>
+
+<footer><strong>Asiaminimart</strong> &nbsp;|&nbsp; โครงการไทยช่วยไทยพลัส &nbsp;|&nbsp; รัฐช่วยออกสูงสุด <strong>฿200/วัน</strong> &nbsp;|&nbsp; สูงสุด <strong>฿1,000/เดือน</strong> เป็นเวลา <strong>4 เดือน</strong></footer>
+
+<script>
+const CAP = 200;
+function fmt(n){ return "฿"+parseFloat(n).toLocaleString("th-TH",{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+function switchTab(n){
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===n-1));
+  document.querySelectorAll(".pane").forEach((p,i)=>p.classList.toggle("active",i===n-1));
+}
+
+function calc1(){
+  const raw = parseFloat(document.getElementById("p1_price").value)||0;
+  const box = document.getElementById("r1box");
+  if(raw<=0){box.style.display="none";document.getElementById("r1_warn").style.display="none";return;}
+  box.style.display="block";
+  const gRaw=raw*0.6, gAct=Math.min(gRaw,CAP), uPay=raw-gAct;
+  const gPct=gAct/raw*100, uPct=100-gPct;
+  document.getElementById("r1_t").textContent=fmt(raw);
+  document.getElementById("r1_g").textContent=fmt(gAct);
+  document.getElementById("r1_u").textContent=fmt(uPay);
+  document.getElementById("r1_bG").style.width=gPct.toFixed(1)+"%";
+  document.getElementById("r1_bU").style.width=uPct.toFixed(1)+"%";
+  document.getElementById("r1_lG").textContent="รัฐ "+gPct.toFixed(0)+"%";
+  document.getElementById("r1_lU").textContent="ประชาชน "+uPct.toFixed(0)+"%";
+  document.getElementById("r1_cap").style.display=gRaw>CAP?"inline":"none";
+  const w=document.getElementById("r1_warn");
+  if(gRaw>CAP){w.textContent="⚠️ ราคาเกินเกณฑ์: รัฐช่วยสูงสุด ฿200 ส่วนเกิน "+fmt(gRaw-CAP)+" ประชาชนรับผิดชอบ";w.style.display="block";}
+  else{w.style.display="none";}
+}
+function setP1(v){document.getElementById("p1_price").value=v;calc1();}
+function clr1(){document.getElementById("p1_price").value="";document.getElementById("r1box").style.display="none";document.getElementById("r1_warn").style.display="none";}
+
+function calc2(){
+  const uMoney = parseFloat(document.getElementById("p2_money").value)||0;
+  const box = document.getElementById("r2box");
+  const infoEl = document.getElementById("r2_info");
+  if(uMoney<=0){box.style.display="none";infoEl.style.display="none";return;}
+  box.style.display="block";
+
+  const pivotUser = CAP / 0.6 * 0.4;
+
+  let total, gov, userActual;
+  let capped = false;
+
+  if(uMoney <= pivotUser){
+    total = uMoney / 0.4;
+    gov   = total * 0.6;
+    userActual = uMoney;
+  } else {
+    gov   = CAP;
+    total = uMoney + CAP;
+    userActual = uMoney;
+    capped = true;
+  }
+
+  const gPct = gov/total*100, uPct = 100-gPct;
+
+  document.getElementById("r2_total").textContent = fmt(total);
+  document.getElementById("r2_gov").textContent   = fmt(gov);
+  document.getElementById("r2_user").textContent  = fmt(userActual);
+  document.getElementById("r2_bG").style.width    = gPct.toFixed(1)+"%";
+  document.getElementById("r2_bU").style.width    = uPct.toFixed(1)+"%";
+  document.getElementById("r2_lG").textContent    = "รัฐ "+gPct.toFixed(0)+"%";
+  document.getElementById("r2_lU").textContent    = "ประชาชน "+uPct.toFixed(0)+"%";
+  document.getElementById("r2_cap").style.display = capped?"inline":"none";
+
+  if(capped){
+    infoEl.textContent="ℹ️ รัฐช่วยออกเต็มสูงสุดแล้ว ฿200/วัน — ประชาชนจ่าย ฿"+userActual.toLocaleString("th-TH",{minimumFractionDigits:2})+" สามารถซื้อสินค้าได้ "+fmt(total);
+    infoEl.style.display="block";
+  } else {
+    infoEl.style.display="none";
+  }
+}
+function setP2(v){document.getElementById("p2_money").value=v;calc2();}
+function clr2(){document.getElementById("p2_money").value="";document.getElementById("r2box").style.display="none";document.getElementById("r2_info").style.display="none";}
+</script>
+</body>
+</html>
